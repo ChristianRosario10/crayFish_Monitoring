@@ -42,7 +42,10 @@ body {
     transition: background-color 0.3s, color 0.3s;
     overflow-x: hidden;
     background: var(--bg-color);
-    background-image: var(--bg-gradient);
+    background-image:url(img/cray.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 a {
@@ -274,6 +277,13 @@ input:checked + .slider:before {
 .crayfish-logo svg {
     width: 24px;
     height: 24px;
+}
+.crayfish-logo img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
 .user-profile img {
     width: 40px;
@@ -516,98 +526,6 @@ input:checked + .slider:before {
     background-color: #00aabd;
 }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .sidebar {
-        width: var(--sidebar-collapsed-width);
-    }
-    .sidebar.expanded {
-        width: var(--sidebar-width);
-    }
-    .sidebar:not(.expanded) .sidebar-header h3,
-    .sidebar:not(.expanded) .sidebar-menu span,
-    .sidebar:not(.expanded) .sidebar-footer span {
-        display: none;
-    }
-     .sidebar:not(.expanded) .sidebar-header {
-        font-size: 1rem;
-    }
-     .sidebar:not(.expanded) .sidebar-menu li a {
-        justify-content: center;
-     }
-     .sidebar:not(.expanded) .sidebar-menu li a i {
-        margin-right: 0;
-     }
-
-    .main-content {
-        margin-left: var(--sidebar-collapsed-width);
-    }
-    .site-footer {
-        margin-left: var(--sidebar-collapsed-width);
-    }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        left: calc(-1 * var(--sidebar-width));
-        width: var(--sidebar-width);
-        height: 100vh; /* Full height on mobile for overlay behavior */
-        z-index: 1000;
-    }
-    .sidebar.expanded {
-        left: 0;
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-    
-    .menu-toggle {
-        display: block;
-    }
-
-    .main-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .header-right {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .site-footer {
-        margin-left: 0;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .social-icons {
-        justify-content: center;
-        display: flex;
-    }
-    
-    .social-icons a {
-        margin: 0 0.5rem;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-     .header-left h1 {
-        font-size: 1.5rem;
-    }
-    .user-profile span {
-        display: none;
-    }
-}
 
 /* Footer */
 .site-footer {
@@ -619,6 +537,7 @@ input:checked + .slider:before {
     backdrop-filter: blur(10px);
     margin-left: var(--sidebar-width);
     transition: margin-left 0.3s ease;
+    
 }
 .footer-content {
     display: flex;
@@ -802,4 +721,177 @@ input:checked + .slider:before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: var(--sidebar-collapsed-width);
+    }
+    .sidebar.expanded {
+        width: var(--sidebar-width);
+    }
+    .sidebar:not(.expanded) .sidebar-header h3,
+    .sidebar:not(.expanded) .sidebar-menu span,
+    .sidebar:not(.expanded) .sidebar-footer span {
+        display: none;
+    }
+     .sidebar:not(.expanded) .sidebar-header {
+        font-size: 1rem;
+    }
+     .sidebar:not(.expanded) .sidebar-menu li a {
+        justify-content: center;
+     }
+     .sidebar:not(.expanded) .sidebar-menu li a i {
+        margin-right: 0;
+     }
+
+    .main-content {
+        margin-left: var(--sidebar-collapsed-width);
+    }
+    .site-footer {
+        margin-left: var(--sidebar-collapsed-width);
+    }
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .main-header, .footer-content {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        padding: 1rem;
+    }
+    .dashboard-grid {
+        gap: 1rem;
+    }
+    .card {
+        padding: 1rem;
+    }
+    .footer-content {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        left: calc(-1 * var(--sidebar-width));
+        width: var(--sidebar-width);
+        height: 100vh; /* Full height on mobile for overlay behavior */
+        z-index: 1000;
+    }
+    .sidebar.expanded {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .site-footer {
+        margin-left: 0;
+        width: auto;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .social-icons {
+        justify-content: center;
+        display: flex;
+    }
+    
+    .social-icons a {
+        margin: 0 0.5rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    .card {
+        padding: 0.75rem;
+    }
+    .footer-section {
+        min-width: 0;
+    }
+    .about-panel {
+        width: 100vw;
+        right: -100vw;
+    }
+    .about-panel.open {
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    .main-header {
+        padding: 0.5rem 0;
+    }
+    .header-left h1 {
+        font-size: 1.1rem;
+    }
+    .card-header h2 {
+        font-size: 1rem;
+    }
+    .status-info h3 {
+        font-size: 1.1rem;
+    }
+    .status-info p, .alert-details p, .alert-details small, .developer-card p {
+        font-size: 0.85rem;
+    }
+    .footer-section h3, .footer-section .logo-text {
+        font-size: 1rem;
+    }
+    .footer-bottom {
+        font-size: 0.8rem;
+        padding: 1rem 0;
+    }
+    .about-panel {
+        width: 100vw;
+        right: -100vw;
+    }
+    .about-panel.open {
+        right: 0;
+    }
+    .user-profile span {
+        display: none;
+    }
+}
+
+@media (max-width: 375px) {
+    html {
+        font-size: 12px;
+    }
+    .main-header, .main-content, .card, .footer-content {
+        padding: 0.5rem;
+    }
+    .card-header h2 {
+        font-size: 0.95rem;
+    }
 }
