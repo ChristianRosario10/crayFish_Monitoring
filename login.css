@@ -109,7 +109,7 @@ body {
 }
 .input-with-icon .feather {
     position: absolute;
-    left: 10px;
+    left: 8px;
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
