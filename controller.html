@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>ESP32 Relay Control Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    .controller-root {
+      font-family: var(--font-family, Arial, sans-serif);
+      text-align: center;
+      background-color: var(--bg-color, #f9f9f9);
+      margin: 0;
+      padding: 0 10px 40px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: space-between;
+      color: var(--text-primary-color, #222);
+    }
+    .controller-root h1 {
+      margin-top: 30px;
+      font-size: 1.8rem;
+      color: var(--text-primary-color, #222);
+    }
+    .relay-card {
+      display: inline-block;
+      background-color: var(--card-bg-color, #fff);
+      padding: 20px;
+      margin: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 220px;
+      vertical-align: top;
+      color: var(--text-primary-color, #222);
+    }
+    .relay-card h2 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      color: var(--text-primary-color, #222);
+    }
+    .relay-card p {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: var(--text-primary-color, #222);
+    }
+    .relay-card button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      background-color: var(--primary-color, blue);
+      cursor: pointer;
+      font-size: 16px;
+      width: 90%;
+      transition: opacity 0.3s ease, background 0.3s;
+    }
+    .relay-card button:hover {
+      opacity: 0.8;
+      background-color: var(--secondary-color, #1976d2);
+    }
+    #allOffBtn, #logoutBtn {
+      max-width: 300px;
+      width: 90%;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 15px auto;
+      display: block;
+      color: #fff;
+      transition: opacity 0.3s ease, background 0.3s;
+    }
+    #allOffBtn {
+      background-color: var(--status-critical, #d32f2f);
+    }
+    #allOffBtn:hover {
+      opacity: 0.8;
+      background-color: var(--primary-color, #0D47A1);
+    }
+    #logoutBtn {
+      background-color: var(--text-secondary-color, #555);
+    }
+    #logoutBtn:hover {
+      opacity: 0.8;
+      background-color: var(--primary-color, #0D47A1);
+    }
+    #dashboard {
+      display: none;
+    }
+    #loginForm {
+      max-width: 400px;
+      margin: 80px auto 20px;
+      background: var(--card-bg-color, #fff);
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      color: var(--text-primary-color, #222);
+    }
+    #loginForm input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 20px;
+      font-size: 1rem;
+      border: 1.5px solid var(--border-color, #ccc);
+      border-radius: 10px;
+      box-sizing: border-box;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+      background: var(--card-bg-color, #fff);
+      color: var(--text-primary-color, #222);
+    }
+    #loginForm input:focus {
+      border-color: var(--primary-color, #1e88e5);
+    }
+    #loginForm button {
+      width: 100%;
+      background-color: var(--primary-color, #1e88e5);
+      color: #fff;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #loginForm button:hover {
+      background-color: var(--secondary-color, #1565c0);
+    }
+    #dashboard .relay-container {
+      max-width: 960px;
+      margin: 20px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    @media (max-width: 700px) {
+      .relay-card {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+      }
+      .controller-root {
+        padding: 0 10px 60px;
+      }
+    }
+    footer {
+      font-size: 0.9rem;
+      color: var(--text-secondary-color, #666);
+      padding: 10px 0;
+      margin-top: 40px;
+    }
+    .alert {
+      display: none;
+      margin: 20px auto 0;
+      max-width: 400px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      background: var(--accent-color, #e3f2fd);
+      color: var(--primary-color, #1565c0);
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(21,101,192,0.08);
+    }
+    .alert.error {
+      background: var(--status-critical, #ffebee);
+      color: #c62828;
+    }
+    .log {
+      margin: 30px auto 0;
+      max-width: 600px;
+      background: var(--card-bg-color, #fff);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 15px 20px;
+      text-align: left;
+      font-size: 0.98rem;
+      min-height: 60px;
+      color: var(--text-primary-color, #222);
+    }
+  </style>
+</head>
+<body>
+  <div class="controller-root">
+    <h1>ESP32 Relay Control Dashboard</h1>
+    <div class="alert" id="alertBox"></div>
+    <!-- Login form -->
+    <div id="loginForm">
+      <input type="email" id="email" placeholder="Enter Email" required />
+      <input type="password" id="password" placeholder="Enter Password" required />
+      <button id="loginBtn">Login</button>
+    </div>
+    <!-- Dashboard -->
+    <div id="dashboard">
+      <div class="relay-container">
+        <div class="relay-card">
+          <h2>Relay 1</h2>
+          <p>Status: <span id="status1">Loading...</span></p>
+          <button id="btn1">Toggle</button>
+        </div>
+        <div class="relay-card">
+          <h2>Relay 2</h2>
+          <p>Status: <span id="status2">Loading...</span></p>
+          <button id="btn2">Toggle</button>
+        </div>
+        <div class="relay-card">
+          <h2>Relay 3</h2>
+          <p>Status: <span id="status3">Loading...</span></p>
+          <button id="btn3">Toggle</button>
+        </div>
+        <div class="relay-card">
+          <h2>Relay 4</h2>
+          <p>Status: <span id="status4">Loading...</span></p>
+          <button id="btn4">Toggle</button>
+        </div>
+      </div>
+      <button id="allOffBtn">All OFF</button>
+      <button id="logoutBtn">Logout</button>
+      <div class="log" id="logBox"></div>
+    </div>
+    <footer>
+      Created by Tech StudyCell
+    </footer>
+  </div>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    // Firebase config (replace with your own if needed)
+    const firebaseConfig = {
+      apiKey: "AIzaSyBuu66pP_mhjlviomBuL1_oIXJl6FHCfB4",
+      authDomain: "crayfish-8ab8d.firebaseapp.com",
+      databaseURL: "https://crayfish-8ab8d-default-rtdb.firebaseio.com",
+      projectId: "crayfish-8ab8d",
+      storageBucket: "crayfish-8ab8d.firebasestorage.app",
+      messagingSenderId: "1065993108226",
+      appId: "1:1065993108226:web:dbd74fc415d79cc8e5201b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    // Predefined login credentials (can be replaced with your logic)
+    const allowedEmail = "crayfish@gmail.com";
+    const allowedPassword = "barangaybaritao";
+    const loginForm = document.getElementById("loginForm");
+    const dashboard = document.getElementById("dashboard");
+    const loginBtn = document.getElementById("loginBtn");
+    const alertBox = document.getElementById("alertBox");
+    const logBox = document.getElementById("logBox");
+    function showAlert(msg, error = false) {
+      alertBox.textContent = msg;
+      alertBox.className = "alert" + (error ? " error" : "");
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 3500);
+    }
+    function log(msg) {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      logBox.innerHTML = `<div>[${time}] ${msg}</div>` + logBox.innerHTML;
+    }
+    loginBtn.addEventListener("click", () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      if (!email || !password) {
+        showAlert("Please enter email and password.", true);
+        return;
+      }
+      // Check hardcoded credentials first
+      if(email === allowedEmail && password === allowedPassword){
+        // Sign in with Firebase
+        firebase.auth().signInWithEmailAndPassword(email, password)
+          .then(userCredential => {
+            showAlert("Signed in as " + userCredential.user.email);
+            loginForm.style.display = "none";
+            dashboard.style.display = "block";
+            log("User signed in: " + userCredential.user.email);
+            startRelayControl();
+          })
+          .catch(error => {
+            showAlert("Firebase login failed: " + error.message, true);
+            log("Login failed: " + error.message);
+          });
+      } else {
+        showAlert("Invalid email or password.", true);
+        log("Invalid login attempt for: " + email);
+      }
+    });
+    function startRelayControl() {
+      const db = firebase.database();
+      const relays = [
+        { id: 1, path: "relay1" },
+        { id: 2, path: "relay2" },
+        { id: 3, path: "relay3" },
+        { id: 4, path: "relay4" },
+      ];
+      relays.forEach(relay => {
+        const statusText = document.getElementById(`status${relay.id}`);
+        const toggleButton = document.getElementById(`btn${relay.id}`);
+        const relayRef = db.ref("/" + relay.path);
+        relayRef.on("value", (snapshot) => {
+          const state = snapshot.val();
+          statusText.innerText = state ? "ON" : "OFF";
+          toggleButton.style.backgroundColor = state ? "var(--status-good, green)" : "var(--primary-color, blue)";
+          log(`Relay ${relay.id} is now ${state ? 'ON' : 'OFF'}`);
+        });
+        toggleButton.onclick = () => {
+          relayRef.get().then(snap => {
+            relayRef.set(!snap.val());
+            log(`Toggled Relay ${relay.id} to ${!snap.val() ? 'OFF' : 'ON'}`);
+          });
+        };
+      });
+      document.getElementById("allOffBtn").onclick = () => {
+        relays.forEach(relay => {
+          db.ref("/" + relay.path).set(false);
+          log(`Relay ${relay.id} set to OFF`);
+        });
+        showAlert("All relays turned OFF");
+      };
+    }
+    document.getElementById("logoutBtn").onclick = () => {
+      firebase.auth().signOut()
+        .then(() => {
+          dashboard.style.display = "none";
+          loginForm.style.display = "block";
+          document.getElementById("email").value = "";
+          document.getElementById("password").value = "";
+          showAlert("Logged out successfully");
+          log("User logged out");
+        })
+        .catch(error => {
+          showAlert("Logout failed: " + error.message, true);
+          log("Logout failed: " + error.message);
+        });
+    };
+  </script>
+</body>
+</html> 
