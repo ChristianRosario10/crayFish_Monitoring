@@ -10,17 +10,36 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
-    <style>
-  @keyframes glow {
-    0% { text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-    50% { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
-    100% { text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-  }
+   <style>
+    @keyframes scalePulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
 
-  .animated-button {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-</style>
+    .animated-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4A90E2;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(74, 144, 226, 0);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      animation: scalePulse 2s infinite; /* Add continuous scale animation */
+    }
+
+    .animated-button:hover {
+      background-color: #357ABD;
+      box-shadow: 0 6px 8px rgba(0,0,0,0.2), 0 0 15px rgba(74, 144, 226, 0.5);
+    }
+  </style>
 <body class="dark-theme">
 
     <nav class="sidebar">
@@ -163,34 +182,12 @@
                 <div class="card-body">
                     <ul>
                         <li>
-                         <a href="controller.html" class="animated-button" style="
-     display: inline-block;
-    padding: 10px 20px;
-    background-color: #4A90E2;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(74, 144, 226, 0);
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  " 
-  onmouseover="this.style.backgroundColor='#357ABD'; this.style.boxShadow='0 6px 8px rgba(0,0,0,0.2), 0 0 15px rgba(74, 144, 226, 0.5)';"
-  onmouseout="this.style.backgroundColor='#4A90E2'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1), 0 0 10px rgba(74, 144, 226, 0)';">
-  Button Text
-</a>
-                              <i data-feather="controller"></i>
-                              <span>Click here</span>
-                            </a>
+                              <a href="controller.html" class="animated-button"> Button Text </a>
                           </li>
                           <br>
                         <li>You can control:</li><br>
                         <li>Automated Feeder</li>
-                        <li>Water Drainer</li><br>
+                        <li>Water Drainer</li>
                         <li>Water Refill</li>
                     </ul>
                 </div>
