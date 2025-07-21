@@ -200,4 +200,25 @@ document.addEventListener('DOMContentLoaded', function () {
             navigateTo('alerts');
         });
     }
+
+    // --- ABOUT PANEL ---
+    const aboutToggle = document.querySelector('.about-toggle');
+    const aboutPanel = document.querySelector('.about-panel');
+    const aboutPanelClose = document.querySelector('.about-panel-close');
+    const overlay = document.querySelector('.overlay');
+
+    if (aboutToggle && aboutPanel && aboutPanelClose && overlay) {
+        aboutToggle.addEventListener('click', () => {
+            aboutPanel.classList.add('open');
+            overlay.classList.add('open');
+        });
+
+        const closeAboutPanel = () => {
+            aboutPanel.classList.remove('open');
+            overlay.classList.remove('open');
+        };
+
+        aboutPanelClose.addEventListener('click', closeAboutPanel);
+        overlay.addEventListener('click', closeAboutPanel);
+    }
 });
