@@ -1,484 +1,231 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELYUCANO CRAYFISH</title>
-    <link rel="icon" href="img/elyucano.jpg" type="image/jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-</head>
-   <style>
-    @keyframes scalePulse {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.1); }
-      100% { transform: scale(1); }
+// --- TRANSLATION & LANGUAGE DATA ---
+const translations = {
+    en: {
+        "eyucano_crayfish": "EYUCANO Crayfish", "dashboard": "Dashboard", "alerts": "Alerts", "data_logs": "Data Logs",
+        "farm_location": "Farm Location", "settings": "Settings", "logout": "Logout", "dashboard_overview": "Dashboard Overview",
+        "real_time_status": "Real-Time Status", "water_temperature": "Water Temperature", "ph_level": "pH Level",
+        "dissolved_oxygen": "Dissolved Oxygen", "good": "Good", "warning": "Warning", "parameter_trends": "Parameter Trends",
+        "recent_alerts": "Recent Alerts", "system_controller": "System Controller", "controllers": "Controllers",
+        "water_quality_tips": "Water Quality Tips", "quick_access": "Quick Access", "export_pdf": "Export as PDF",
+        "export_csv": "Export as CSV", "about_developers": "About the Developers", "lead_developer": "Lead Developer",
+        "language": "Language", "quick_links": "Quick Links", "sensors": "Sensors", "about": "About", "contact": "Contact",
+        "all_alerts": "All Alerts"
+    },
+    tl: {
+        "eyucano_crayfish": "EYUCANO Crayfish", "dashboard": "Dashboard", "alerts": "Mga Alerto", "data_logs": "Mga Log ng Datos",
+        "farm_location": "Lokasyon ng Bukid", "settings": "Mga Setting", "logout": "Mag-log out", "dashboard_overview": "Pangkalahatang-ideya ng Dashboard",
+        "real_time_status": "Katayuan sa Real-Time", "water_temperature": "Temperatura ng Tubig", "ph_level": "Antas ng pH",
+        "dissolved_oxygen": "Natunaw na Oxygen", "good": "Mabuti", "warning": "Babala", "parameter_trends": "Mga Trend ng Parameter",
+        "recent_alerts": "Mga Kamakailang Alerto", "system_controller": "System Controller", "controllers": "Mga Controller",
+        "water_quality_tips": "Mga Tip sa Kalidad ng Tubig", "quick_access": "Mabilis na Pag-access", "export_pdf": "I-export bilang PDF",
+        "export_csv": "I-export bilang CSV", "about_developers": "Tungkol sa Mga Developer", "lead_developer": "Nangungunang Developer",
+        "language": "Wika", "quick_links": "Mga Mabilis na Link", "sensors": "Mga Sensor", "about": "Tungkol sa", "contact": "Makipag-ugnay",
+        "all_alerts": "Lahat ng Alerto"
+    },
+    ilo: {
+        "eyucano_crayfish": "EYUCANO Crayfish", "dashboard": "Dashboard", "alerts": "Dagiti Alerto", "data_logs": "Dagiti Log ti Datos",
+        "farm_location": "Lokasion ti Talun", "settings": "Dagiti Seting", "logout": "Rummuar", "dashboard_overview": "Sangkakublan a Panagkita ti Dashboard",
+        "real_time_status": "Kasasaad iti Real-Time", "water_temperature": "Temperatura ti Danum", "ph_level": "Lebel ti pH",
+        "dissolved_oxygen": "Nairaman nga Oksiheno", "good": "Naimbag", "warning": "Pakdaar", "parameter_trends": "Dagiti Trend ti Parameter",
+        "recent_alerts": "Dagiti Kabiitan nga Alerto", "system_controller": "Kontroler ti Sistema", "controllers": "Dagiti Kontroler",
+        "water_quality_tips": "Dagiti Balakad iti Kalidad ti Danum", "quick_access": "Napardas a Panagserrek", "export_pdf": "I-export kas PDF",
+        "export_csv": "I-export kas CSV", "about_developers": "Maipapan Kadagiti Developer", "lead_developer": "Pangbuyotan a Developer",
+        "language": "Pagsasao", "quick_links": "Napardas a Links", "sensors": "Dagiti Sensor", "about": "Maipapan", "contact": "Kontaken",
+        "all_alerts": "Amin a Alerto"
+    }
+};
+const languageData = { 'en': { name: 'English' }, 'tl': { name: 'Tagalog' }, 'ilo': { name: 'Ilocano' } };
+
+// --- GLOBAL FUNCTIONS ---
+function setLanguage(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('language', lang);
+    document.querySelectorAll("[data-translate-key]").forEach(el => {
+        const key = el.getAttribute("data-translate-key");
+        el.textContent = translations[lang]?.[key] || el.textContent;
+    });
+    updateLanguageCardStates();
+}
+
+function updateLanguageCardStates() {
+    const currentLang = localStorage.getItem('language') || 'en';
+    document.querySelectorAll('.language-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.lang === currentLang);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // --- AUTH CHECK ---
+    if (sessionStorage.getItem('loggedIn') !== 'true' && localStorage.getItem('loggedIn') !== 'true') {
+        window.location.href = 'index.html'; return;
     }
 
-    .animated-button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #4A90E2;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-family: 'Arial', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(74, 144, 226, 0);
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      animation: scalePulse 2s infinite; /* Add continuous scale animation */
+    // --- INITIAL LANGUAGE SET ---
+    setLanguage(localStorage.getItem('language') || 'en');
+
+    // --- LANGUAGE CHANGER LOGIC ---
+    const languageSelection = document.querySelector('.language-selection');
+    const modal = document.getElementById('language-confirm-modal');
+    if (languageSelection && modal) {
+        let pendingLanguageChange = null;
+        const confirmBtn = document.getElementById('confirm-language-btn');
+        const cancelBtn = document.getElementById('cancel-language-btn');
+        const modalClose = document.getElementById('modal-close');
+        const selectedLanguageName = document.getElementById('selected-language-name');
+
+        const closeModal = () => { modal.classList.remove('show'); pendingLanguageChange = null; };
+
+        languageSelection.addEventListener('click', e => {
+            const card = e.target.closest('.language-card');
+            if (card && !card.classList.contains('active')) {
+                pendingLanguageChange = card.dataset.lang;
+                selectedLanguageName.textContent = languageData[pendingLanguageChange].name;
+                modal.classList.add('show');
+            }
+        });
+
+        confirmBtn.addEventListener('click', () => { if (pendingLanguageChange) { setLanguage(pendingLanguageChange); closeModal(); } });
+        cancelBtn.addEventListener('click', closeModal);
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     }
 
-    .animated-button:hover {
-      background-color: #357ABD;
-      box-shadow: 0 6px 8px rgba(0,0,0,0.2), 0 0 15px rgba(74, 144, 226, 0.5);
+    // --- THEME SWITCHER ---
+    const themeToggle = document.getElementById('theme-toggle-checkbox');
+    themeToggle.addEventListener('change', () => {
+        document.body.classList.toggle('dark-theme', themeToggle.checked);
+        document.body.classList.toggle('light-theme', !themeToggle.checked);
+        updateChartTheme();
+    });
+
+    // --- SIDEBAR & NAVIGATION ---
+    const sidebar = document.querySelector('.sidebar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebarMenu = document.querySelector('.sidebar-menu');
+    const mainContent = document.querySelector('.main-content');
+    const headerTitle = document.querySelector('.main-header h1');
+    const contentSections = {
+        dashboard: mainContent.querySelector('.dashboard-grid'),
+        alerts: mainContent.querySelector('#alerts-page'),
+        datalogs: mainContent.querySelector('#datalogs-page'),
+        settings: mainContent.querySelector('#settings-page'),
+    };
+
+    function navigateTo(pageId) {
+        sidebarMenu.querySelector('.active')?.classList.remove('active');
+        sidebarMenu.querySelector(`a[data-page="${pageId}"]`)?.parentElement.classList.add('active');
+        Object.values(contentSections).forEach(s => s.style.display = 'none');
+        if (contentSections[pageId]) {
+            contentSections[pageId].style.display = pageId === 'dashboard' ? 'grid' : 'block';
+        }
+        const pageTitles = { dashboard: 'dashboard_overview', alerts: 'all_alerts', datalogs: 'data_logs', settings: 'settings' };
+        headerTitle.dataset.translateKey = pageTitles[pageId];
+        setLanguage(localStorage.getItem('language') || 'en');
+        if (window.innerWidth <= 768) sidebar.classList.remove('expanded');
     }
-  </style>
-<body class="dark-theme">
 
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <h5 data-translate-key="eyucano_crayfish">EYUCANO Crayfish</h5>
-        </div>
-        <ul class="sidebar-menu">
-            <li class="active"><a href="#"><i data-feather="home"></i><span data-translate-key="dashboard">Dashboard</span></a></li>
-            <li><a href="#"><i data-feather="alert-triangle"></i><span data-translate-key="alerts">Alerts</span></a></li>
-            <li><a href="#"><i data-feather="database"></i><span data-translate-key="data_logs">Data Logs</span></a></li>
-            <li><a href="#"><i data-feather="map-pin"></i><span data-translate-key="farm_location">Farm Location</span></a></li>
-            <li><a href="#"><i data-feather="settings"></i><span data-translate-key="settings">Settings</span></a></li>
-           
-        </ul>
-        <div class="sidebar-footer">
-            <a href="#" id="logout-button"><i data-feather="log-out"></i><span data-translate-key="logout">Exit</span></a>
-        </div>
-    </nav>
+    if (sidebarMenu) {
+        const navLinks = sidebarMenu.querySelectorAll('a');
+        navLinks.forEach((link, i) => {
+            const page = ['dashboard', 'alerts', 'datalogs', 'farm_location', 'settings'][i];
+            if(page) link.dataset.page = page;
+        });
+        sidebarMenu.addEventListener('click', e => {
+            const link = e.target.closest('a');
+            if (link?.dataset.page) { e.preventDefault(); navigateTo(link.dataset.page); }
+        });
+    }
+    
+    // --- CHART.JS LOGIC ---
+    const ctx = document.getElementById('trendsChart');
+    let trendsChart;
+    const initialData = {
+        '24h': {
+            labels: Array(13).fill().map((_, i) => i * 5),
+            datasets: [
+                { label: 'Temperature (°C)', data: [25.0, 25.1, 25.0, 25.2, 25.3, 25.1, 25.0, 25.2, 25.4, 25.3, 25.5, 25.4, 25.4], borderColor: '#0D47A1', tension: 0.4 },
+                { label: 'pH', data: [7.2, 7.2, 7.1, 7.1, 7.2, 7.3, 7.2, 7.1, 7.0, 7.1, 7.2, 7.2, 7.2], borderColor: '#FFC107', tension: 0.4 },
+                { label: 'Oxygen (mg/L)', data: [6.8, 6.9, 6.8, 6.7, 6.6, 6.5, 6.6, 6.7, 6.8, 6.9, 6.8, 6.7, 6.8], borderColor: '#00BCD4', tension: 0.4 }
+            ]
+        },
+    };
 
-    <main class="main-content">
-        <header class="main-header">                             
-            <div class="header-left">
-                <button class="menu-toggle"><i data-feather="menu"></i></button>
-                <h1 data-translate-key="dashboard_overview">Dashboard Overview</h1>
-            </div>
-            <div class="header-right">
-                <div class="theme-switcher">
-                    <i data-feather="sun" class="light-icon"></i>
-                    <label class="switch">
-                        <input type="checkbox" id="theme-toggle-checkbox" checked>
-                        <span class="slider round"></span>
-                    </label>
-                    <i data-feather="moon" class="dark-icon"></i>
-                </div>
-                <div class="user-profile-container">
-                    <div class="user-profile">
-                         <div class="crayfish-logo" id="expandable-logo" style="cursor:pointer;">
-                            <img src="img/elyucano.jpg" alt="User Logo"/>
-                        </div>
-                        <span>User</span>
-                    </div>
-                </div>
-                <div class="about-toggle-container">
-                    <button class="about-toggle" aria-label="About the Developers">
-                        <i data-feather="info"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
+    function getChartOptions() {
+        const isDark = document.body.classList.contains('dark-theme');
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+        const textColor = isDark ? '#e2e8f0' : '#333';
+        return {
+            responsive: true, maintainAspectRatio: false,
+            scales: { y: { grid: { color: gridColor }, ticks: { color: textColor } }, x: { grid: { color: gridColor }, ticks: { color: textColor } } },
+            plugins: { legend: { labels: { color: textColor } } }
+        };
+    }
 
-        <div class="dashboard-grid">
-            <div class="card overview-card">
-                <div class="card-header">
-                    <h2 data-translate-key="real_time_status">Real-Time Status</h2>
-                </div>
-                <div class="card-body">
-                    <div class="status-item">
-                        <div class="status-icon temperature">
-                            <i data-feather="thermometer"></i>
-                        </div>
-                        <div class="status-info">
-                            <p data-translate-key="water_temperature">Water Temperature</p>
-                            <h3>25.4 °C</h3>
-                        </div>
-                        <div class="status-badge good" data-translate-key="good">Good</div>
-                    </div>
-                    <div class="status-item">
-                        <div class="status-icon ph">
-                            <i data-feather="droplet"></i>
-                        </div>
-                        <div class="status-info">
-                            <p data-translate-key="ph_level">pH Level</p>
-                            <h3>7.2</h3>
-                        </div>
-                        <div class="status-badge good" data-translate-key="good">Good</div>
-                    </div>
-                    <div class="status-item">
-                        <div class="status-icon oxygen">
-                            <i data-feather="wind"></i>
-                        </div>
-                        <div class="status-info">
-                            <p data-translate-key="dissolved_oxygen">Dissolved Oxygen</p>
-                            <h3>6.8 mg/L</h3>
-                        </div>
-                        <div class="status-badge warning" data-translate-key="warning">Warning</div>
-                    </div>
-                </div>
-            </div>
+    function updateChartTheme() {
+        if (!trendsChart) return;
+        trendsChart.options = getChartOptions();
+        trendsChart.update();
+    }
 
-            <div class="card chart-card">
-                <div class="card-header">
-                    <h2 data-translate-key="parameter_trends">Parameter Trends</h2>
-                    <div class="time-range-toggle">
-                        <button class="active"> Live</button>
-                        <button>7d</button>
-                        <button>30d</button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <canvas id="trendsChart"></canvas>
-                </div>
-            </div>
+    function createChart() {
+        if (!ctx) return;
+        trendsChart = new Chart(ctx, { type: 'line', data: initialData['24h'], options: getChartOptions() });
+    }
+    createChart();
 
-            <div class="card alerts-card">
-                <div class="card-header">
-                    <h2 data-translate-key="recent_alerts">Recent Alerts</h2>
-                    <button id="view-all-alerts-btn" class="btn btn-primary" style="margin-left:auto;">View All Alerts</button>
-                </div>
-                <div class="card-body">
-                    <ul class="alert-list">
-                        <li class="alert critical">
-                            <i data-feather="alert-octagon"></i>
-                            <div class="alert-details">
-                                <p><strong>Critical:</strong> Low Oxygen Detected</p>
-                                <small>06/30/2025 19:55</small>
-                            </div>
-                            <button class="dismiss-alert"><i data-feather="x"></i></button>
-                        </li>
-                        <li class="alert warning">
-                            <i data-feather="alert-triangle"></i>
-                            <div class="alert-details">
-                                <p><strong>Warning:</strong> pH level is high</p>
-                                <small>06/30/2025 19:00</small>
-                            </div>
-                            <button class="dismiss-alert"><i data-feather="x"></i></button>
-                        </li>
-                         <li class="alert info">
-                            <i data-feather="info"></i>
-                            <div class="alert-details">
-                                <p><strong>Info:</strong> Sensor B-01 calibrated</p>
-                                <small>06/29/2025 12:00</small>
-                            </div>
-                            <button class="dismiss-alert"><i data-feather="x"></i></button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
-             
-             <div class="card tips-card">
-                <div class="card-header">
-                    <h2 data-translate-key="system_controller">System Controller</h2>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>
-                              <a href="controller.html" class="animated-button" data-translate-key="controllers"> Controllers </a>
-                          </li>
-                          <br>
-                        <li><b>You can control:</b></li>
-                        <li>Automated Feeder</li>
-                        <li>Water Drainer</li>
-                        <li>Water Refill</li>
-                    </ul>
-                </div>
-            </div>
+    // --- LOGOUT & FINAL INIT ---
+    document.getElementById('logout-button')?.addEventListener('click', e => {
+        e.preventDefault();
+        sessionStorage.removeItem('loggedIn');
+        localStorage.removeItem('loggedIn');
+        window.location.href = 'index.html';
+    });
+    feather.replace();
 
-            <!-- New Card: Water Quality Tips -->
-            <div class="card tips-card">
-                <div class="card-header">
-                    <h2 data-translate-key="water_quality_tips">Water Quality Tips</h2>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Regularly monitor temperature, pH, and oxygen levels.</li>
-                        <li>Perform partial water changes weekly.</li>
-                        <li>Remove uneaten food to prevent ammonia spikes.</li>
-                        <li>Ensure proper aeration at all times.</li>
-                        <li>Check equipment for malfunctions regularly.</li>
-                    </ul>
-                </div>
-            </div>
+    // --- LOGO MODAL ---
+    const logo = document.getElementById('expandable-logo');
+    const logoModal = document.getElementById('logo-modal');
+    const logoModalClose = document.getElementById('logo-modal-close');
+    if (logo && logoModal && logoModalClose) {
+        logo.addEventListener('click', () => logoModal.classList.add('show'));
+        logoModalClose.addEventListener('click', () => logoModal.classList.remove('show'));
+        logoModal.addEventListener('click', (e) => { if (e.target === logoModal) logoModal.classList.remove('show'); });
+    }
 
-            <!-- New Card: Quick Access -->
-            <div class="card quick-access-card">
-                <div class="card-header">
-                    <h2 data-translate-key="quick_access">Quick Access</h2>
-                </div>
-                <div class="card-body">
-                    <p><strong>PDF File Generator for Data Logs</strong></p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
-                        <button id="export-pdf" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--primary-color); color: white; font-weight: 600; cursor: pointer;" data-translate-key="export_pdf">Export as PDF</button>
-                        <button id="export-csv" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--secondary-color); color: var(--dark-bg); font-weight: 600; cursor: pointer;" data-translate-key="export_csv">Export as CSV</button>
-                    </div>
-                </div>
-            </div>
+    // --- VIEW ALL ALERTS BUTTON ---
+    const viewAllAlertsBtn = document.getElementById('view-all-alerts-btn');
+    if (viewAllAlertsBtn) {
+        viewAllAlertsBtn.addEventListener('click', () => {
+            navigateTo('alerts');
+        });
+    }
 
-        </div>
+    // --- ABOUT PANEL ---
+    const aboutToggle = document.querySelector('.about-toggle');
+    const aboutPanel = document.querySelector('.about-panel');
+    const aboutPanelClose = document.querySelector('.about-panel-close');
+    const overlay = document.querySelector('.overlay');
 
-        <div class="content-section sensor-page" id="sensor-alpha-01-page" style="display: none;">
-            <!-- Content will be generated by JS -->
-        </div>
-        <div class="content-section sensor-page" id="sensor-beta-02-page" style="display: none;">
-            <!-- Content will be generated by JS -->
-        </div>
+    if (aboutToggle && aboutPanel && aboutPanelClose && overlay) {
+        aboutToggle.addEventListener('click', () => {
+            aboutPanel.classList.add('open');
+            overlay.classList.add('open');
+        });
 
-        <div class="content-section" id="alerts-page" style="display: none;">
-            <div class="card">
-                <div class="card-header">
-                    <h2 data-translate-key="all_alerts">All Alerts</h2>
-                </div>
-                <div class="card-body">
-                    <div class="scrollable-container">
-                        <ul class="alert-list full">
-                            <li class="alert critical">
-                                <i data-feather="alert-octagon"></i>
-                                <div class="alert-details">
-                                    <p><strong>Critical:</strong> Low Oxygen Detected</p>
-                                    <small>06/30/2025 19:55</small>
-                                </div>
-                                <button class="dismiss-alert"><i data-feather="x"></i></button>
-                            </li>
-                            <li class="alert warning">
-                                <i data-feather="alert-triangle"></i>
-                                <div class="alert-details">
-                                    <p><strong>Warning:</strong> pH level is high</p>
-                                    <small>06/30/2025 19:00</small>
-                                </div>
-                                <button class="dismiss-alert"><i data-feather="x"></i></button>
-                            </li>
-                             <li class="alert info">
-                                <i data-feather="info"></i>
-                                <div class="alert-details">
-                                    <p><strong>Info:</strong> Sensor B-01 calibrated</p>
-                                    <small>06/29/2025 12:00</small>
-                                </div>
-                                <button class="dismiss-alert"><i data-feather="x"></i></button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        const closeAboutPanel = () => {
+            aboutPanel.classList.remove('open');
+            overlay.classList.remove('open');
+        };
 
-        <div class="content-section" id="datalogs-page" style="display: none;">
-             <div class="card">
-                <div class="card-header">
-                    <h2>Data Logs</h2>
-                    <button id="export-csv">Export as CSV</button>
-                </div>
-                <div class="card-body">
-                    <div class="data-logs-scrollable">
-                        <table id="data-log-table">
-                            <thead>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>Temperature (°C)</th>
-                                    <th>pH Level</th>
-                                    <th>Dissolved Oxygen (mg/L)</th>
-                                    <th>Sensor ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2023-10-27 10:00:00</td>
-                                    <td>25.4</td>
-                                    <td>7.2</td>
-                                    <td>6.8</td>
-                                    <td>Alpha-01</td>
-                                </tr>
-                                 <tr>
-                                    <td>2023-10-27 09:55:00</td>
-                                    <td>25.3</td>
-                                    <td>7.1</td>
-                                    <td>6.9</td>
-                                    <td>Alpha-01</td>
-                                </tr>
-                                 <tr>
-                                    <td>2023-10-27 09:50:00</td>
-                                    <td>25.5</td>
-                                    <td>7.2</td>
-                                    <td>6.8</td>
-                                    <td>Alpha-01</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="content-section" id="settings-page" style="display: none;">
-             <div class="card">
-                <div class="card-header">
-                    <h2 data-translate-key="settings">Settings</h2>
-                </div>
-                <div class="card-body">
-                   <p>User profile settings, notification preferences, and alert threshold adjustments would be configured here.</p>
-                   <div class="settings-item">
-                       <h4 data-translate-key="language">Language</h4>
-                       <div class="language-selection">
-                           <div class="language-card" data-lang="en">
-                               <div class="language-icon">🇺🇸</div>
-                               <div class="language-info">
-                                   <h5>English</h5>
-                                   <p>English (United States)</p>
-                               </div>
-                               <div class="language-status"></div>
-                           </div>
-                           <div class="language-card" data-lang="tl">
-                               <div class="language-icon">🇵🇭</div>
-                               <div class="language-info">
-                                   <h5>Tagalog</h5>
-                                   <p>Filipino (Philippines)</p>
-                               </div>
-                               <div class="language-status"></div>
-                           </div>
-                           <div class="language-card" data-lang="ilo">
-                               <div class="language-icon">🇵🇭</div>
-                               <div class="language-info">
-                                   <h5>Ilocano</h5>
-                                   <p>Iloko (Philippines)</p>
-                               </div>
-                               <div class="language-status"></div>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-            </div>
-        </div>
+        aboutPanelClose.addEventListener('click', closeAboutPanel);
+        overlay.addEventListener('click', closeAboutPanel);
+    }
 
-        <!-- Language Change Confirmation Modal -->
-        <div id="language-confirm-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Confirm Language Change</h3>
-                    <button class="modal-close" id="modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to change the language to <strong id="selected-language-name"></strong>?</p>
-                </div>
-                <div class="modal-footer">
-                    <button id="confirm-language-btn" class="btn btn-primary">Confirm</button>
-                    <button id="cancel-language-btn" class="btn btn-secondary">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Expandable Logo Modal -->
-        <div id="logo-modal" class="logo-modal">
-            <div class="logo-modal-content">
-                <button class="logo-modal-close" id="logo-modal-close">&times;</button>
-                <img src="img/elyucano.jpg" alt="Logo Large" class="logo-modal-img">
-            </div>
-        </div>
-
-    </main>
-
-    <div class="about-panel">
-        <div class="about-panel-header">
-            <h3 data-translate-key="about_developers">About the Developers</h3>
-            <button class="about-panel-close" aria-label="Close">
-                <i data-feather="x"></i>
-            </button>
-        </div>
-        <div class="about-panel-content">
-            <div class="developer-card">
-                <img src="img/DV1.jpg" alt="Developer 1">
-                <h4>Christian Rosario</h4>
-                <h5 data-translate-key="lead_developer">Lead Developer</h5>
-                <p>Email: rosariochristian325@gmail.com</p>
-                <p>Phone: 09456718005</p>
-                <p>Address: San jaun, Sta. Lucia Ilocos Sur</p>
-                <p>Age: 21</p>
-               
-            </div>
-            <div class="developer-card">
-                <img src="img/DV2.jpg" alt="Developer 2">
-                <h4>Michelle Somera</h4>
-                <p>Email: someramichelle@gmail.com</p>
-                <p>Phone: 09196310024</p>
-                <p>Address: Del pilar, Tagudin Ilocos Sur</p>
-                <p>Age: 24</p>
-            </div>
-            <div class="developer-card">
-                <img src="img/DV3.jpg" alt="Developer 3">
-                <h4>Ed Zyrille Labiano</h4>
-                <p>Email: edroleinlabiano@gmail.com</p>
-                <p>Phone: 09631810241</p>
-                <p>Address:  Baritao, Tagudin, Ilcoos Sur</p>
-                <p>Age: 22</p>
-            </div>
-            <div class="developer-card">
-                <img src="img/DV4.jpg" alt="Developer 4">
-                <h4>Jericho Sta Romana</h4>
-                <p>Email: jerichopantilgan@gmail.com</p>
-                <p>Phone: 09090909090909</p>
-                <p>Address: Consuegra, Bangar La Union</p>
-                <p>Age: 23</p>
-            </div>
-        </div>
-    </div>
-    <div class="overlay"></div>
-
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3 class="logo-text"><span data-translate-key="eyucano_crayfish">EYUCANO Crayfish</span>Monitoring</h3>
-                <p>
-                    Smart aquaculture monitoring for modern crayfish farming.
-                    Providing real-time insights for healthier yields.
-                </p>
-            </div>
-            <div class="footer-section footer-logo-container">
-                <img src="img/elyucano.jpg" alt="Company Logo" class="footer-logo" style="border-radius: 50%;">
-            </div>
-            <div class="footer-section links">
-                <h3 data-translate-key="quick_links">Quick Links</h3>
-                <ul>
-                    <li><a href="#" data-translate-key="dashboard">Dashboard</a></li>
-                    <li><a href="#" data-translate-key="sensors">Sensors</a></li>
-                    <li><a href="#" data-translate-key="about">About</a></li>
-                    <li><a href="#" data-translate-key="contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="#"><i data-feather="facebook"></i></a>
-                    <a href="#"><i data-feather="twitter"></i></a>
-                    <a href="#"><i data-feather="instagram"></i></a>
-                    <a href="#"><i data-feather="linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2025 Crayfish Monitoring System | All Rights Reserved @Chan-chan_R | 
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="script.js"></script>
-    <script>
-        feather.replace();
-    </script>
-</body>
-</html>
-
+    // --- MENU TOGGLE FOR SIDEBAR (MOBILE) ---
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('expanded');
+        });
+    }
+});
