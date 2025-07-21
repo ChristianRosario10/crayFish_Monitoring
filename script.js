@@ -221,4 +221,11 @@ document.addEventListener('DOMContentLoaded', function () {
         aboutPanelClose.addEventListener('click', closeAboutPanel);
         overlay.addEventListener('click', closeAboutPanel);
     }
+
+    // --- MENU TOGGLE FOR SIDEBAR (MOBILE) ---
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('expanded');
+        });
+    }
 });
