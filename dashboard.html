@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELYUCANO CRAYFISH</title>
-    <link rel="icon" href="elyucano.jpg" type="img/jpg">
+    <link rel="icon" href="img/elyucano.jpg" type="image/jpg">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,7 +56,7 @@
            
         </ul>
         <div class="sidebar-footer">
-            <a href="#" id="logout-button"><i data-feather="log-out"></i><span data-translate-key="logout">Logout</span></a>
+            <a href="#" id="logout-button"><i data-feather="log-out"></i><span data-translate-key="logout">Exit</span></a>
         </div>
     </nav>
 
@@ -75,15 +75,19 @@
                     </label>
                     <i data-feather="moon" class="dark-icon"></i>
                 </div>
-                <div class="user-profile">
-                     <div class="crayfish-logo">
-                        <img src="img/elyucano.jpg" alt="User Logo"/>
+                <div class="user-profile-container">
+                    <div class="user-profile">
+                         <div class="crayfish-logo" id="expandable-logo" style="cursor:pointer;">
+                            <img src="img/elyucano.jpg" alt="User Logo"/>
+                        </div>
+                        <span>User</span>
                     </div>
-                    <span>User</span>
                 </div>
-                <button class="about-toggle" aria-label="About the Developers">
-                    <i data-feather="info"></i>
-                </button>
+                <div class="about-toggle-container">
+                    <button class="about-toggle" aria-label="About the Developers">
+                        <i data-feather="info"></i>
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -143,7 +147,7 @@
             <div class="card alerts-card">
                 <div class="card-header">
                     <h2 data-translate-key="recent_alerts">Recent Alerts</h2>
-                    <a href="#alerts" class="view-all">View All</a>
+                    <button id="view-all-alerts-btn" class="btn btn-primary" style="margin-left:auto;">View All Alerts</button>
                 </div>
                 <div class="card-body">
                     <ul class="alert-list">
@@ -327,11 +331,6 @@
                    <p>User profile settings, notification preferences, and alert threshold adjustments would be configured here.</p>
                    <div class="settings-item">
                        <h4 data-translate-key="language">Language</h4>
-                       <div class="expandable-logo-container">
-                           <img src="img/elyucano.jpg" alt="Logo" class="expandable-logo" id="expandable-logo" style="border-radius:50%;width:60px;height:60px;cursor:pointer;">
-                           <span style="margin-left:1rem;vertical-align:middle;">Click to expand logo</span>
-                       </div>
-                       <button id="view-all-alerts-btn" class="btn btn-primary" style="margin:1rem 0 0 0;">View All Alerts</button>
                        <div class="language-selection">
                            <div class="language-card" data-lang="en">
                                <div class="language-icon">🇺🇸</div>
@@ -419,10 +418,10 @@
             <div class="developer-card">
                 <img src="img/DV3.jpg" alt="Developer 3">
                 <h4>Ed Zyrille Labiano</h4>
-                <p>Email: rosariochristian325@gmail.com</p>
-                <p>Phone: 09090909090909</p>
-                <p>Address: japan</p>
-                <p>Age: 99</p>
+                <p>Email: edroleinlabiano@gmail.com</p>
+                <p>Phone: 09631810241</p>
+                <p>Address:  Baritao, Tagudin, Ilcoos Sur</p>
+                <p>Age: 22</p>
             </div>
             <div class="developer-card">
                 <img src="img/DV4.jpg" alt="Developer 4">
@@ -482,3 +481,4 @@
     </script>
 </body>
 </html>
+
