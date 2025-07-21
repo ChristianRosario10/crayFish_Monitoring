@@ -187,7 +187,12 @@ body {
 .header-right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
+}
+
+.user-profile-container, .about-toggle-container {
+    display: flex;
+    align-items: center;
 }
 
 /* Theme Switcher */
@@ -668,8 +673,15 @@ input:checked + .slider:before {
 .about-panel-content {
     padding: 1.5rem;
     overflow-y: auto;
-    flex-grow: 1;
+    height: calc(100% - 60px);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+.about-panel-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
 .developer-card {
     display: flex;
     flex-direction: column;
@@ -1341,4 +1353,6 @@ small {
     background: var(--card-bg-color, #fff);
     margin-bottom: 1rem;
 }
+
+
 
