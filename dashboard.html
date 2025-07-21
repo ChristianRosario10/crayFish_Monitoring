@@ -45,18 +45,18 @@
 
     <nav class="sidebar">
         <div class="sidebar-header">
-            <h3>EYUCANO Crayfish Monitoring</h3>
+            <h5 data-translate-key="eyucano_crayfish">EYUCANO Crayfish</h5>
         </div>
         <ul class="sidebar-menu">
-            <li class="active"><a href="#"><i data-feather="home"></i><span>Dashboard</span></a></li>
-            <li><a href="#"><i data-feather="alert-triangle"></i><span>Alerts</span></a></li>
-            <li><a href="#"><i data-feather="database"></i><span>Data Logs</span></a></li>
-            <li><a href="#"><i data-feather="map-pin"></i><span>Farm Location</span></a></li>
-            <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
+            <li class="active"><a href="#"><i data-feather="home"></i><span data-translate-key="dashboard">Dashboard</span></a></li>
+            <li><a href="#"><i data-feather="alert-triangle"></i><span data-translate-key="alerts">Alerts</span></a></li>
+            <li><a href="#"><i data-feather="database"></i><span data-translate-key="data_logs">Data Logs</span></a></li>
+            <li><a href="#"><i data-feather="map-pin"></i><span data-translate-key="farm_location">Farm Location</span></a></li>
+            <li><a href="#"><i data-feather="settings"></i><span data-translate-key="settings">Settings</span></a></li>
            
         </ul>
         <div class="sidebar-footer">
-            <a href="#" id="logout-button"><i data-feather="log-out"></i><span>Logout</span></a>
+            <a href="#" id="logout-button"><i data-feather="log-out"></i><span data-translate-key="logout">Logout</span></a>
         </div>
     </nav>
 
@@ -64,7 +64,7 @@
         <header class="main-header">                             
             <div class="header-left">
                 <button class="menu-toggle"><i data-feather="menu"></i></button>
-                <h1>Dashboard Overview</h1>
+                <h1 data-translate-key="dashboard_overview">Dashboard Overview</h1>
             </div>
             <div class="header-right">
                 <div class="theme-switcher">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="user-profile">
                      <div class="crayfish-logo">
-                        <img src="img/elyucano" alt="User Logo" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" />
+                        <img src="img/elyucano.jpg" alt="User Logo"/>
                     </div>
                     <span>User</span>
                 </div>
@@ -90,7 +90,7 @@
         <div class="dashboard-grid">
             <div class="card overview-card">
                 <div class="card-header">
-                    <h2>Real-Time Status</h2>
+                    <h2 data-translate-key="real_time_status">Real-Time Status</h2>
                 </div>
                 <div class="card-body">
                     <div class="status-item">
@@ -98,37 +98,37 @@
                             <i data-feather="thermometer"></i>
                         </div>
                         <div class="status-info">
-                            <p>Water Temperature</p>
+                            <p data-translate-key="water_temperature">Water Temperature</p>
                             <h3>25.4 °C</h3>
                         </div>
-                        <div class="status-badge good">Good</div>
+                        <div class="status-badge good" data-translate-key="good">Good</div>
                     </div>
                     <div class="status-item">
                         <div class="status-icon ph">
                             <i data-feather="droplet"></i>
                         </div>
                         <div class="status-info">
-                            <p>pH Level</p>
+                            <p data-translate-key="ph_level">pH Level</p>
                             <h3>7.2</h3>
                         </div>
-                        <div class="status-badge good">Good</div>
+                        <div class="status-badge good" data-translate-key="good">Good</div>
                     </div>
                     <div class="status-item">
                         <div class="status-icon oxygen">
                             <i data-feather="wind"></i>
                         </div>
                         <div class="status-info">
-                            <p>Dissolved Oxygen</p>
+                            <p data-translate-key="dissolved_oxygen">Dissolved Oxygen</p>
                             <h3>6.8 mg/L</h3>
                         </div>
-                        <div class="status-badge warning">Warning</div>
+                        <div class="status-badge warning" data-translate-key="warning">Warning</div>
                     </div>
                 </div>
             </div>
 
             <div class="card chart-card">
                 <div class="card-header">
-                    <h2>Parameter Trends</h2>
+                    <h2 data-translate-key="parameter_trends">Parameter Trends</h2>
                     <div class="time-range-toggle">
                         <button class="active"> Live</button>
                         <button>7d</button>
@@ -142,7 +142,7 @@
 
             <div class="card alerts-card">
                 <div class="card-header">
-                    <h2>Recent Alerts</h2>
+                    <h2 data-translate-key="recent_alerts">Recent Alerts</h2>
                     <a href="#alerts" class="view-all">View All</a>
                 </div>
                 <div class="card-body">
@@ -178,12 +178,12 @@
              
              <div class="card tips-card">
                 <div class="card-header">
-                    <h2>System Controller</h2>
+                    <h2 data-translate-key="system_controller">System Controller</h2>
                 </div>
                 <div class="card-body">
                     <ul>
                         <li>
-                              <a href="controller.html" class="animated-button"> Controllers </a>
+                              <a href="controller.html" class="animated-button" data-translate-key="controllers"> Controllers </a>
                           </li>
                           <br>
                         <li><b>You can control:</b></li>
@@ -197,7 +197,7 @@
             <!-- New Card: Water Quality Tips -->
             <div class="card tips-card">
                 <div class="card-header">
-                    <h2>Water Quality Tips</h2>
+                    <h2 data-translate-key="water_quality_tips">Water Quality Tips</h2>
                 </div>
                 <div class="card-body">
                     <ul>
@@ -213,13 +213,13 @@
             <!-- New Card: Quick Access -->
             <div class="card quick-access-card">
                 <div class="card-header">
-                    <h2>Quick Access</h2>
+                    <h2 data-translate-key="quick_access">Quick Access</h2>
                 </div>
                 <div class="card-body">
                     <p><strong>PDF File Generator for Data Logs</strong></p>
                     <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
-                        <button id="export-pdf" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--primary-color); color: white; font-weight: 600; cursor: pointer;">Export as PDF</button>
-                        <button id="export-csv" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--secondary-color); color: var(--dark-bg); font-weight: 600; cursor: pointer;">Export as CSV</button>
+                        <button id="export-pdf" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--primary-color); color: white; font-weight: 600; cursor: pointer;" data-translate-key="export_pdf">Export as PDF</button>
+                        <button id="export-csv" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--secondary-color); color: var(--dark-bg); font-weight: 600; cursor: pointer;" data-translate-key="export_csv">Export as CSV</button>
                     </div>
                 </div>
             </div>
@@ -236,36 +236,37 @@
         <div class="content-section" id="alerts-page" style="display: none;">
             <div class="card">
                 <div class="card-header">
-                    <h2>All Alerts</h2>
+                    <h2 data-translate-key="all_alerts">All Alerts</h2>
                 </div>
                 <div class="card-body">
-                    <p>A full, filterable list of all historical alerts would be displayed here.</p>
-                     <ul class="alert-list full">
-                        <li class="alert critical">
-                            <i data-feather="alert-octagon"></i>
-                            <div class="alert-details">
-                                <p><strong>Critical:</strong> Low Oxygen Detected</p>
-                                <small>06/30/2025 19:55</small>
-                            </div>
-                            <button class="dismiss-alert"><i data-feather="x"></i></button>
-                        </li>
-                        <li class="alert warning">
-                            <i data-feather="alert-triangle"></i>
-                            <div class="alert-details">
-                                <p><strong>Warning:</strong> pH level is high</p>
-                                <small>06/30/2025 19:00</small>
-                            </div>
-                            <button class="dismiss-alert"><i data-feather="x"></i></button>
-                        </li>
-                         <li class="alert info">
-                            <i data-feather="info"></i>
-                            <div class="alert-details">
-                                <p><strong>Info:</strong> Sensor B-01 calibrated</p>
-                                <small>06/29/2025 12:00</small>
-                            </div>
-                            <button class="dismiss-alert"><i data-feather="x"></i></button>
-                        </li>
-                    </ul>
+                    <div class="scrollable-container">
+                        <ul class="alert-list full">
+                            <li class="alert critical">
+                                <i data-feather="alert-octagon"></i>
+                                <div class="alert-details">
+                                    <p><strong>Critical:</strong> Low Oxygen Detected</p>
+                                    <small>06/30/2025 19:55</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
+                            <li class="alert warning">
+                                <i data-feather="alert-triangle"></i>
+                                <div class="alert-details">
+                                    <p><strong>Warning:</strong> pH level is high</p>
+                                    <small>06/30/2025 19:00</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
+                             <li class="alert info">
+                                <i data-feather="info"></i>
+                                <div class="alert-details">
+                                    <p><strong>Info:</strong> Sensor B-01 calibrated</p>
+                                    <small>06/29/2025 12:00</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,40 +278,42 @@
                     <button id="export-csv">Export as CSV</button>
                 </div>
                 <div class="card-body">
-                    <table id="data-log-table">
-                        <thead>
-                            <tr>
-                                <th>Timestamp</th>
-                                <th>Temperature (°C)</th>
-                                <th>pH Level</th>
-                                <th>Dissolved Oxygen (mg/L)</th>
-                                <th>Sensor ID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2023-10-27 10:00:00</td>
-                                <td>25.4</td>
-                                <td>7.2</td>
-                                <td>6.8</td>
-                                <td>Alpha-01</td>
-                            </tr>
-                             <tr>
-                                <td>2023-10-27 09:55:00</td>
-                                <td>25.3</td>
-                                <td>7.1</td>
-                                <td>6.9</td>
-                                <td>Alpha-01</td>
-                            </tr>
-                             <tr>
-                                <td>2023-10-27 09:50:00</td>
-                                <td>25.5</td>
-                                <td>7.2</td>
-                                <td>6.8</td>
-                                <td>Alpha-01</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="data-logs-scrollable">
+                        <table id="data-log-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Temperature (°C)</th>
+                                    <th>pH Level</th>
+                                    <th>Dissolved Oxygen (mg/L)</th>
+                                    <th>Sensor ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2023-10-27 10:00:00</td>
+                                    <td>25.4</td>
+                                    <td>7.2</td>
+                                    <td>6.8</td>
+                                    <td>Alpha-01</td>
+                                </tr>
+                                 <tr>
+                                    <td>2023-10-27 09:55:00</td>
+                                    <td>25.3</td>
+                                    <td>7.1</td>
+                                    <td>6.9</td>
+                                    <td>Alpha-01</td>
+                                </tr>
+                                 <tr>
+                                    <td>2023-10-27 09:50:00</td>
+                                    <td>25.5</td>
+                                    <td>7.2</td>
+                                    <td>6.8</td>
+                                    <td>Alpha-01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,11 +321,70 @@
         <div class="content-section" id="settings-page" style="display: none;">
              <div class="card">
                 <div class="card-header">
-                    <h2>Settings</h2>
+                    <h2 data-translate-key="settings">Settings</h2>
                 </div>
                 <div class="card-body">
                    <p>User profile settings, notification preferences, and alert threshold adjustments would be configured here.</p>
+                   <div class="settings-item">
+                       <h4 data-translate-key="language">Language</h4>
+                       <div class="expandable-logo-container">
+                           <img src="img/elyucano.jpg" alt="Logo" class="expandable-logo" id="expandable-logo" style="border-radius:50%;width:60px;height:60px;cursor:pointer;">
+                           <span style="margin-left:1rem;vertical-align:middle;">Click to expand logo</span>
+                       </div>
+                       <button id="view-all-alerts-btn" class="btn btn-primary" style="margin:1rem 0 0 0;">View All Alerts</button>
+                       <div class="language-selection">
+                           <div class="language-card" data-lang="en">
+                               <div class="language-icon">🇺🇸</div>
+                               <div class="language-info">
+                                   <h5>English</h5>
+                                   <p>English (United States)</p>
+                               </div>
+                               <div class="language-status"></div>
+                           </div>
+                           <div class="language-card" data-lang="tl">
+                               <div class="language-icon">🇵🇭</div>
+                               <div class="language-info">
+                                   <h5>Tagalog</h5>
+                                   <p>Filipino (Philippines)</p>
+                               </div>
+                               <div class="language-status"></div>
+                           </div>
+                           <div class="language-card" data-lang="ilo">
+                               <div class="language-icon">🇵🇭</div>
+                               <div class="language-info">
+                                   <h5>Ilocano</h5>
+                                   <p>Iloko (Philippines)</p>
+                               </div>
+                               <div class="language-status"></div>
+                           </div>
+                       </div>
+                   </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Language Change Confirmation Modal -->
+        <div id="language-confirm-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Confirm Language Change</h3>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to change the language to <strong id="selected-language-name"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirm-language-btn" class="btn btn-primary">Confirm</button>
+                    <button id="cancel-language-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expandable Logo Modal -->
+        <div id="logo-modal" class="logo-modal">
+            <div class="logo-modal-content">
+                <button class="logo-modal-close" id="logo-modal-close">&times;</button>
+                <img src="img/elyucano.jpg" alt="Logo Large" class="logo-modal-img">
             </div>
         </div>
 
@@ -330,7 +392,7 @@
 
     <div class="about-panel">
         <div class="about-panel-header">
-            <h3>About the Developers</h3>
+            <h3 data-translate-key="about_developers">About the Developers</h3>
             <button class="about-panel-close" aria-label="Close">
                 <i data-feather="x"></i>
             </button>
@@ -339,7 +401,7 @@
             <div class="developer-card">
                 <img src="img/DV1.jpg" alt="Developer 1">
                 <h4>Christian Rosario</h4>
-                <h5>Lead Developer</h5>
+                <h5 data-translate-key="lead_developer">Lead Developer</h5>
                 <p>Email: rosariochristian325@gmail.com</p>
                 <p>Phone: 09456718005</p>
                 <p>Address: San jaun, Sta. Lucia Ilocos Sur</p>
@@ -377,19 +439,22 @@
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-section about">
-                <h3 class="logo-text"><span>EYUCANO Crayfish</span>Monitoring</h3>
+                <h3 class="logo-text"><span data-translate-key="eyucano_crayfish">EYUCANO Crayfish</span>Monitoring</h3>
                 <p>
                     Smart aquaculture monitoring for modern crayfish farming.
                     Providing real-time insights for healthier yields.
                 </p>
             </div>
+            <div class="footer-section footer-logo-container">
+                <img src="img/elyucano.jpg" alt="Company Logo" class="footer-logo" style="border-radius: 50%;">
+            </div>
             <div class="footer-section links">
-                <h3>Quick Links</h3>
+                <h3 data-translate-key="quick_links">Quick Links</h3>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Sensors</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#" data-translate-key="dashboard">Dashboard</a></li>
+                    <li><a href="#" data-translate-key="sensors">Sensors</a></li>
+                    <li><a href="#" data-translate-key="about">About</a></li>
+                    <li><a href="#" data-translate-key="contact">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section social">
