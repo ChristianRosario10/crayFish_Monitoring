@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELYUCANO CRAYFISH</title>
+    <link rel="icon" href="img/elyucano.jpg" type="image/jpg">
+    <link rel="icon" href="img/elyucano.jpg" type="image/jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+   <style>
+    @keyframes scalePulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .animated-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4A90E2;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(74, 144, 226, 0);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      animation: scalePulse 2s infinite; /* Add continuous scale animation */
+    }
+
+    .animated-button:hover {
+      background-color: #357ABD;
+      box-shadow: 0 6px 8px rgba(0,0,0,0.2), 0 0 15px rgba(74, 144, 226, 0.5);
+    }
+  </style>
+<body class="dark-theme">
+
+    <!--
+      Accessibility & ARIA improvements:
+      - All nav, header, and modal elements have ARIA roles and labels
+      - All buttons have aria-labels and are keyboard accessible
+      - See script.js for keyboard event handling
+    -->
+    <nav class="sidebar" aria-label="Main Navigation">
+        <div class="sidebar-header">
+            <h5 data-translate-key="eyucano_crayfish">EYUCANO Crayfish</h5>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"><a href="#"><i data-feather="home"></i><span data-translate-key="dashboard">Dashboard</span></a></li>
+            <li><a href="#"><i data-feather="alert-triangle"></i><span data-translate-key="alerts">Alerts</span></a></li>
+            <li><a href="#"><i data-feather="database"></i><span data-translate-key="data_logs">Data Logs</span></a></li>
+            <li><a href="#"><i data-feather="map-pin"></i><span data-translate-key="farm_location">Farm Location</span></a></li>
+            <li><a href="#"><i data-feather="settings"></i><span data-translate-key="settings">Settings</span></a></li>
+           
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" id="logout-button" aria-label="Logout"><i data-feather="log-out"></i><span data-translate-key="logout">Exit</span></a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="main-header" role="banner" aria-label="Main Header">                             
+            <div class="header-left">
+                <button class="menu-toggle" aria-label="Open navigation menu" aria-controls="sidebar" aria-expanded="false" tabindex="0"><i data-feather="menu"></i></button>
+                <h1 data-translate-key="dashboard_overview">Dashboard Overview</h1>
+            </div>
+            <div class="header-center-group">
+                <div class="user-profile-container">
+                    <div class="user-profile" style="display:flex;align-items:center;gap:1rem;">
+                        <div class="crayfish-logo" id="expandable-logo" style="cursor:pointer;">
+                            <img src="img/elyucano.jpg" alt="User Logo"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-toggle-container">
+                    <button class="about-toggle" aria-label="About the Developers">
+                        <i data-feather="info"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- Responsive header structure: clock centered, user logo right, about-toggle far right, all inline -->
+
+        <div class="dashboard-grid">
+            <div class="card overview-card">
+                <div class="card-header">
+                    <h2 data-translate-key="real_time_status">Real-Time Status</h2>
+                </div>
+                <div class="card-body">
+                    <div class="status-item">
+                        <div class="status-icon temperature">
+                            <!-- Animated Thermometer SVG -->
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="live-thermometer">
+                                <rect x="13" y="6" width="6" height="16" rx="3" fill="#e0e0e0"/>
+                                <rect class="mercury" x="15" y="14" width="2" height="8" rx="1" fill="#FF5252"/>
+                                <circle cx="16" cy="26" r="6" fill="#FF5252"/>
+                                <circle cx="16" cy="26" r="3" fill="#fff" fill-opacity="0.3"/>
+                            </svg>
+                        </div>
+                        <div class="status-info">
+                            <p data-translate-key="water_temperature">Water Temperature</p>
+                            <h3>25.4 °C</h3>
+                        </div>
+                        <div class="status-badge good" data-translate-key="good">Good</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-icon ph">
+                            <!-- Animated Droplet SVG -->
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="live-droplet">
+                                <path d="M16 4C16 4 8 15 8 20C8 25.5228 12.4772 30 18 30C23.5228 30 28 25.5228 28 20C28 15 16 4 16 4Z" fill="#00BCD4"/>
+                                <ellipse class="ph-wave" cx="18" cy="24" rx="6" ry="2" fill="#fff" fill-opacity="0.4"/>
+                            </svg>
+                        </div>
+                        <div class="status-info">
+                            <p data-translate-key="ph_level">pH Level</p>
+                            <h3>7.2</h3>
+                        </div>
+                        <div class="status-badge good" data-translate-key="good">Good</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-icon oxygen">
+                            <!-- Animated Oxygen SVG -->
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="live-oxygen">
+                                <circle cx="16" cy="24" r="6" fill="#4A90E2"/>
+                                <circle class="bubble1" cx="12" cy="18" r="2" fill="#B3E5FC"/>
+                                <circle class="bubble2" cx="20" cy="14" r="1.5" fill="#B3E5FC"/>
+                                <circle class="bubble3" cx="16" cy="10" r="1" fill="#B3E5FC"/>
+                            </svg>
+                        </div>
+                        <div class="status-info">
+                            <p data-translate-key="dissolved_oxygen">Dissolved Oxygen</p>
+                            <h3>6.8 mg/L</h3>
+                        </div>
+                        <div class="status-badge warning" data-translate-key="warning">Warning</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h2 data-translate-key="parameter_trends">Parameter Trends</h2>
+                    <div class="time-range-toggle">
+                        <button class="active"> Live</button>
+                        <button>7d</button>
+                        <button>30d</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="trendsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card alerts-card">
+                <div class="card-header">
+                    <h2 data-translate-key="recent_alerts">Recent Alerts</h2>
+                    <button id="view-all-alerts-btn" class="btn btn-primary" style="margin-left:auto;">View All Alerts</button>
+                </div>
+                <div class="card-body">
+                    <ul class="alert-list">
+                        <li class="alert critical">
+                            <i data-feather="alert-octagon"></i>
+                            <div class="alert-details">
+                                <p><strong>Critical:</strong> Low Oxygen Detected</p>
+                                <small>06/30/2025 19:55</small>
+                            </div>
+                            <button class="dismiss-alert"><i data-feather="x"></i></button>
+                        </li>
+                        <li class="alert warning">
+                            <i data-feather="alert-triangle"></i>
+                            <div class="alert-details">
+                                <p><strong>Warning:</strong> pH level is high</p>
+                                <small>06/30/2025 19:00</small>
+                            </div>
+                            <button class="dismiss-alert"><i data-feather="x"></i></button>
+                        </li>
+                         <li class="alert info">
+                            <i data-feather="info"></i>
+                            <div class="alert-details">
+                                <p><strong>Info:</strong> Sensor B-01 calibrated</p>
+                                <small>06/29/2025 12:00</small>
+                            </div>
+                            <button class="dismiss-alert"><i data-feather="x"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+             
+             <div class="card tips-card">
+                <div class="card-header">
+                    <h2 data-translate-key="system_controller">System Controller</h2>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                              <a href="controller.html" class="animated-button" data-translate-key="controllers"> Controllers </a>
+                          </li>
+                          <br>
+                        <li><b>You can control:</b></li>
+                        <li>Automated Feeder</li>
+                        <li>Water Drainer</li>
+                        <li>Water Refill</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- New Card: Alternative Crayfish Foods -->
+            <div class="card tips-card">
+                <div class="card-header">
+                    <h2 data-translate-key="alt_crayfish_foods">Alternative Crayfish Foods</h2>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li data-translate-key="food_veggies">Blanched vegetables (zucchini, spinach, carrots)</li>
+                        <li data-translate-key="food_pellets">Sinking fish or shrimp pellets</li>
+                        <li data-translate-key="food_leaves">Dried Indian almond or oak leaves</li>
+                        <li data-translate-key="food_frozen">Frozen bloodworms or brine shrimp</li>
+                        <li data-translate-key="food_snails">Snails and other small invertebrates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- New Card: Quick Access -->
+            <div class="card quick-access-card">
+                <div class="card-header">
+                    <h2 data-translate-key="quick_access">Quick Access</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>PDF File Generator for Data Logs</strong></p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                        <button id="export-pdf" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--primary-color); color: white; font-weight: 600; cursor: pointer;" data-translate-key="export_pdf">Export as PDF</button>
+                        <button id="export-csv" style="padding: 0.5rem 1.2rem; border-radius: 8px; border: none; background: var(--secondary-color); color: var(--dark-bg); font-weight: 600; cursor: pointer;" data-translate-key="export_csv">Export as CSV</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content-section sensor-page" id="sensor-alpha-01-page" style="display: none;">
+            <!-- Content will be generated by JS -->
+        </div>
+        <div class="content-section sensor-page" id="sensor-beta-02-page" style="display: none;">
+            <!-- Content will be generated by JS -->
+        </div>
+
+        <div class="content-section" id="alerts-page" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 data-translate-key="all_alerts">All Alerts</h2>
+                </div>
+                <div class="card-body">
+                    <div class="scrollable-container">
+                        <ul class="alert-list full">
+                            <li class="alert critical">
+                                <i data-feather="alert-octagon"></i>
+                                <div class="alert-details">
+                                    <p><strong>Critical:</strong> Low Oxygen Detected</p>
+                                    <small>06/30/2025 19:55</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
+                            <li class="alert warning">
+                                <i data-feather="alert-triangle"></i>
+                                <div class="alert-details">
+                                    <p><strong>Warning:</strong> pH level is high</p>
+                                    <small>06/30/2025 19:00</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
+                             <li class="alert info">
+                                <i data-feather="info"></i>
+                                <div class="alert-details">
+                                    <p><strong>Info:</strong> Sensor B-01 calibrated</p>
+                                    <small>06/29/2025 12:00</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="datalogs-page" style="display: none;">
+             <div class="card">
+                <div class="card-header">
+                    <h2>Data Logs</h2>
+                    <button id="export-csv">Export as CSV</button>
+                </div>
+                <div class="card-body">
+                    <div class="data-logs-scrollable">
+                        <table id="data-log-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Temperature (°C)</th>
+                                    <th>pH Level</th>
+                                    <th>Dissolved Oxygen (mg/L)</th>
+                                    <th>Sensor ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2023-10-27 10:00:00</td>
+                                    <td>25.4</td>
+                                    <td>7.2</td>
+                                    <td>6.8</td>
+                                    <td>Alpha-01</td>
+                                </tr>
+                                 <tr>
+                                    <td>2023-10-27 09:55:00</td>
+                                    <td>25.3</td>
+                                    <td>7.1</td>
+                                    <td>6.9</td>
+                                    <td>Alpha-01</td>
+                                </tr>
+                                 <tr>
+                                    <td>2023-10-27 09:50:00</td>
+                                    <td>25.5</td>
+                                    <td>7.2</td>
+                                    <td>6.8</td>
+                                    <td>Alpha-01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section" id="settings-page" style="display: none;">
+             <div class="card">
+                <div class="card-header">
+                    <h2 data-translate-key="settings">Settings</h2>
+                </div>
+                <div class="card-body">
+                    <div class="settings-item" id="theme-settings-section" style="margin-bottom:1.2rem;">
+                        <label class="standard-switch">
+                            <input type="checkbox" id="theme-toggle-checkbox">
+                            <span class="standard-slider"></span>
+                            <span id="theme-toggle-label">Dark Mode</span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <h4 data-translate-key="language">Language</h4>
+                        <div class="language-selection">
+                            <div class="language-card" data-lang="en">
+                                <div class="language-icon">🇺🇸</div>
+                                <div class="language-info">
+                                    <h5>English</h5>
+                                    <p>English (United States)</p>
+                                </div>
+                                <div class="language-status"></div>
+                            </div>
+                            <div class="language-card" data-lang="tl">
+                                <div class="language-icon">🇵🇭</div>
+                                <div class="language-info">
+                                    <h5>Tagalog</h5>
+                                    <p>Filipino (Philippines)</p>
+                                </div>
+                                <div class="language-status"></div>
+                            </div>
+                            <div class="language-card" data-lang="ilo">
+                                <div class="language-icon">🇵🇭</div>
+                                <div class="language-info">
+                                    <h5>Ilocano</h5>
+                                    <p>Iloko (Philippines)</p>
+                                </div>
+                                <div class="language-status"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Change Confirmation Modal -->
+        <div id="language-confirm-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Confirm Language Change</h3>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to change the language to <strong id="selected-language-name"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirm-language-btn" class="btn btn-primary">Confirm</button>
+                    <button id="cancel-language-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expandable Logo Modal -->
+        <div id="logo-modal" class="logo-modal">
+            <div class="logo-modal-content">
+                <button class="logo-modal-close" id="logo-modal-close">&times;</button>
+                <img src="img/elyucano.jpg" alt="Logo Large" class="logo-modal-img">
+            </div>
+        </div>
+
+    </main>
+
+    <div class="about-panel">
+        <div class="about-panel-header">
+            <h3 data-translate-key="about_developers">About the Developers</h3>
+            <button class="about-panel-close" aria-label="Close">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        <div class="about-panel-content">
+            <div class="developer-card">
+                <img src="img/DV1.jpg" alt="Developer 1">
+                <h4>Christian Rosario</h4>
+                <h5 data-translate-key="lead_developer">Lead Developer</h5>
+                <p data-translate-key="email_label">Email:</p> <span>rosariochristian325@gmail.com</span>
+                <p data-translate-key="phone_label">Phone:</p> <span>09456718005</span>
+                <p data-translate-key="address_label">Address:</p> <span>San jaun, Sta. Lucia Ilocos Sur</span>
+                <p data-translate-key="age_label">Age:</p> <span>21</span>
+            </div>
+            <div class="developer-card">
+                <img src="img/DV2.jpg" alt="Developer 2">
+                <h4>Michelle Somera</h4>
+                <p data-translate-key="email_label">Email:</p> <span>someramichelle@gmail.com</span>
+                <p data-translate-key="phone_label">Phone:</p> <span>09196310024</span>
+                <p data-translate-key="address_label">Address:</p> <span>Del pilar, Tagudin Ilocos Sur</span>
+                <p data-translate-key="age_label">Age:</p> <span>24</span>
+            </div>
+            <div class="developer-card">
+                <img src="img/DV3.jpg" alt="Developer 3">
+                <h4>Ed Zyrille Labiano</h4>
+                <p data-translate-key="email_label">Email:</p> <span>edroleinlabiano@gmail.com</span>
+                <p data-translate-key="phone_label">Phone:</p> <span>09631810241</span>
+                <p data-translate-key="address_label">Address:</p> <span>Baritao, Tagudin, Ilcoos Sur</span>
+                <p data-translate-key="age_label">Age:</p> <span>22</span>
+            </div>
+            <div class="developer-card">
+                <img src="img/DV4.jpg" alt="Developer 4">
+                <h4>Jericho Sta Romana</h4>
+                <p data-translate-key="email_label">Email:</p> <span>jerichopantilgan@gmail.com</span>
+                <p data-translate-key="phone_label">Phone:</p> <span>09090909090909</span>
+                <p data-translate-key="address_label">Address:</p> <span>Consuegra, Bangar La Union</span>
+                <p data-translate-key="age_label">Age:</p> <span>23</span>
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3 class="logo-text"><span data-translate-key="eyucano_crayfish">EYUCANO Crayfish</span>Monitoring</h3>
+                <p>
+                    Smart aquaculture monitoring for modern crayfish farming.
+                    Providing real-time insights for healthier yields.
+                </p>
+            </div>
+            <div class="footer-section footer-logo-container">
+                <img src="img/elyucano.jpg" alt="Company Logo" class="footer-logo" style="border-radius: 50%;">
+            </div>
+            <div class="footer-section links">
+                <h3 data-translate-key="quick_links">Quick Links</h3>
+                <ul>
+                    <li><a href="#" data-translate-key="dashboard">Dashboard</a></li>
+                    <li><a href="#" data-translate-key="sensors">Sensors</a></li>
+                    <li><a href="#" data-translate-key="about">About</a></li>
+                    <li><a href="#" data-translate-key="contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3 class="footer-future" style="font-family: 'Bebas Neue', Arial, sans-serif; font-size: 22px; letter-spacing:0.05em; text-transform:uppercase; margin-left: 23px;">The Future Begins Here</h3>
+                <ul class="footer-quick-links">
+                    <li><a href="https://ispsc.edu.ph/campuses/main-campus/">ISPSC MAIN CAMPUS</a></li>
+                    <li><a href="https://ispsc.edu.ph/campuses/santa-maria-campus/">ISPSC STA. MARIA</a></li>
+                    <li><a href="https://ispsc.edu.ph/campuses/santiago-campus/">ISPSC SANTIAGO</a></li>
+                    <li><a href="https://ispsc.edu.ph/campuses/narvacan-campus/">ISPSC NARVACAN</a></li>
+                    <li><a href="https://ispsc.edu.ph/campuses/tagudin-campus/">ISPSC TAGUDIN</a></li>
+                    <li><a href="https://ispsc.edu.ph/campuses/candon-city-campus/">ISPSC CANDON CITY</a></li>
+                    <li><a href="https://ispsc.edu.ph/campuses/cervantes-campus/">ISPSC CERVANTES</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Crayfish Monitoring System | All Rights Reserved | @elyucano_crayfish | @Chan-chan_R |
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
