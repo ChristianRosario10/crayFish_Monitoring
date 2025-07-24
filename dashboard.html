@@ -142,6 +142,21 @@
                         </div>
                         <div class="status-badge warning" data-translate-key="warning">Warning</div>
                     </div>
+                    <div class="status-item">
+                        <div class="status-icon turbidity">
+                            <!-- Animated Turbidity SVG -->
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="live-turbidity">
+                                <ellipse cx="16" cy="24" rx="10" ry="6" fill="#B0BEC5"/>
+                                <ellipse cx="16" cy="20" rx="8" ry="4" fill="#90A4AE"/>
+                                <ellipse cx="16" cy="16" rx="6" ry="3" fill="#78909C"/>
+                            </svg>
+                        </div>
+                        <div class="status-info">
+                            <p>Turbidity</p>
+                            <h3>2.5 NTU</h3>
+                        </div>
+                        <div class="status-badge good">Good</div>
+                    </div>
                 </div>
             </div>
 
@@ -187,6 +202,14 @@
                             <div class="alert-details">
                                 <p><strong>Info:</strong> Sensor B-01 calibrated</p>
                                 <small>06/29/2025 12:00</small>
+                            </div>
+                            <button class="dismiss-alert"><i data-feather="x"></i></button>
+                        </li>
+                        <li class="alert warning">
+                            <i data-feather="alert-triangle"></i>
+                            <div class="alert-details">
+                                <p><strong>Warning:</strong> Turbidity is high</p>
+                                <small>06/30/2025 18:30</small>
                             </div>
                             <button class="dismiss-alert"><i data-feather="x"></i></button>
                         </li>
@@ -284,6 +307,14 @@
                                 </div>
                                 <button class="dismiss-alert"><i data-feather="x"></i></button>
                             </li>
+                            <li class="alert warning">
+                                <i data-feather="alert-triangle"></i>
+                                <div class="alert-details">
+                                    <p><strong>Warning:</strong> Turbidity is high</p>
+                                    <small>06/30/2025 18:30</small>
+                                </div>
+                                <button class="dismiss-alert"><i data-feather="x"></i></button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -305,6 +336,7 @@
                                     <th>Temperature (°C)</th>
                                     <th>pH Level</th>
                                     <th>Dissolved Oxygen (mg/L)</th>
+                                    <th>Turbidity (NTU)</th>
                                     <th>Sensor ID</th>
                                 </tr>
                             </thead>
@@ -314,6 +346,7 @@
                                     <td>25.4</td>
                                     <td>7.2</td>
                                     <td>6.8</td>
+                                    <td>2.5</td>
                                     <td>Alpha-01</td>
                                 </tr>
                                  <tr>
@@ -321,6 +354,7 @@
                                     <td>25.3</td>
                                     <td>7.1</td>
                                     <td>6.9</td>
+                                    <td>2.4</td>
                                     <td>Alpha-01</td>
                                 </tr>
                                  <tr>
@@ -328,6 +362,7 @@
                                     <td>25.5</td>
                                     <td>7.2</td>
                                     <td>6.8</td>
+                                    <td>2.6</td>
                                     <td>Alpha-01</td>
                                 </tr>
                             </tbody>
