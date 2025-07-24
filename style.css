@@ -353,6 +353,7 @@ input:checked + .slider:before {
 .status-icon.temperature { background-color: #2196F3; }
 .status-icon.ph { background-color: #FF9800; }
 .status-icon.oxygen { background-color: #00BCD4; }
+.status-icon.turbidity { background-color: #B0BEC5; }
 
 .status-info p {
     font-size: 0.9rem;
@@ -1904,5 +1905,13 @@ small {
   0% { cy: 10; opacity: 1; }
   80% { cy: -4; opacity: 0.7; }
   100% { cy: -8; opacity: 0; }
+}
+
+.live-turbidity ellipse {
+  animation: turbidityPulse 1.5s infinite alternate cubic-bezier(.4,2,.6,1);
+}
+@keyframes turbidityPulse {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
 }
 
