@@ -634,7 +634,8 @@ document.addEventListener('DOMContentLoaded', function () {
             datasets: [
                 { label: 'Temperature (°C)', data: [25.0, 25.1, 25.0, 25.2, 25.3, 25.1, 25.0, 25.2, 25.4, 25.3, 25.5, 25.4, 25.4], borderColor: '#0D47A1', tension: 0.4 },
                 { label: 'pH', data: [7.2, 7.2, 7.1, 7.1, 7.2, 7.3, 7.2, 7.1, 7.0, 7.1, 7.2, 7.2, 7.2], borderColor: '#FFC107', tension: 0.4 },
-                { label: 'Oxygen (mg/L)', data: [6.8, 6.9, 6.8, 6.7, 6.6, 6.5, 6.6, 6.7, 6.8, 6.9, 6.8, 6.7, 6.8], borderColor: '#00BCD4', tension: 0.4 }
+                { label: 'Oxygen (mg/L)', data: [6.8, 6.9, 6.8, 6.7, 6.6, 6.5, 6.6, 6.7, 6.8, 6.9, 6.8, 6.7, 6.8], borderColor: '#00BCD4', tension: 0.4 },
+                { label: 'Turbidity (NTU)', data: [2.5, 2.6, 2.4, 2.7, 2.5, 2.6, 2.5, 2.4, 2.5, 2.6, 2.7, 2.5, 2.5], borderColor: '#B0BEC5', tension: 0.4 },
             ]
         },
     };
