@@ -3,84 +3,754 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - Crayfish Monitoring System</title>
+    <title>ELYUCANO Crayfish - Smart Aquaculture Monitoring</title>
     <link rel="icon" href="img/elyucano.jpg" type="image/jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: url('img/bg.jpg') no-repeat center center fixed;
-            background-size: cover;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0D47A1 0%, #00BCD4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(13, 71, 161, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 188, 212, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 150, 136, 0.3) 0%, transparent 50%);
+            animation: bgShift 20s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(1deg); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .main-container {
+            position: relative;
+            z-index: 10;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 1rem;
+            overflow-y: auto;
         }
-        .welcome-container {
-            background: rgba(255,255,255,0.9);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            padding: 2.5rem 2rem 2rem 2rem;
+
+        /* Hero Section */
+        .hero-section {
             text-align: center;
-            max-width: 350px;
+            max-width: 1400px;
             width: 100%;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
         }
-        .welcome-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
+
+        /* Logo Animation */
+        .logo-container {
+            position: relative;
             margin-bottom: 1rem;
         }
-        .welcome-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: logoPulse 3s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #0D47A1, #00BCD4, #009688, #4A90E2);
+            background-size: 400% 400%;
+            animation: borderRotate 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Title Animation */
+        .title-container {
+            margin-bottom: 1rem;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffffff, #e0e0e0, #ffffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShine 3s ease-in-out infinite;
             margin-bottom: 0.5rem;
-            color: #0D47A1;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            line-height: 1.2;
         }
-        .welcome-desc {
-            color: #333;
-            margin-bottom: 1.5rem;
+
+        @keyframes titleShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
-        .proceed-btn {
-            background: #0D47A1;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 0.7rem 2.2rem;
-            font-size: 1rem;
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1rem;
+        }
+
+        .feature-card {
+            background: rgba(45, 55, 72, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardFloat 0.6s ease-out both;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(45, 55, 72, 0.7);
+        }
+
+        @keyframes cardFloat {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-icon {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            animation: iconFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .feature-title {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
         }
-        .proceed-btn:hover {
-            background: #1565c0;
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+            line-height: 1.4;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out 1.2s both;
+            background: rgba(45, 55, 72, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        /* CTA Button - Moved to top */
+        .cta-container {
+            margin: 1.5rem 0;
+            animation: fadeInUp 1s ease-out 0.8s both;
+            padding: 0 1rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #0D47A1, #00BCD4);
+            color: white;
+            border: none;
+            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 4vw, 3rem);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #1565c0, #00acc1);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: rgba(255, 255, 255, 0.1);
+            animation: floatAround 20s linear infinite;
+        }
+
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100px, -100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0D47A1 0%, #00BCD4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 0.5rem;
+            }
+            
+            .hero-section {
+                padding: 0.5rem 0;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.8rem;
+                max-width: 350px;
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .feature-card {
+                padding: 0.8rem;
+                min-height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0.3rem;
+            }
+            
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .feature-card {
+                padding: 0.6rem;
+                min-height: 90px;
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+            
+            .cta-button {
+                min-width: 160px;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        /* Ensure button is always visible */
+        .cta-container {
+            position: relative;
+            z-index: 20;
+            margin-bottom: 1rem;
+        }
+
+        /* Additional visual enhancements */
+        .hero-section {
+            position: relative;
+            z-index: 15;
+        }
+
+        /* Remove scroll indicator since everything fits on screen */
+        .scroll-indicator {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="welcome-container">
-        <img src="img/elyucano.jpg" alt="Crayfish Logo" class="welcome-logo">
-        <div class="welcome-title">Welcome to ELYUCANO Crayfish Monitoring</div>
-        <div class="welcome-desc">Smart aquaculture monitoring for modern crayfish farming.<br>Click proceed to enter the system.</div>
-        <form id="auto-login-form">
-            <button type="submit" class="proceed-btn">Proceed</button>
-        </form>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
     </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="hero-section">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="img/elyucano.jpg" alt="ELYUCANO Crayfish" class="logo">
+            </div>
+
+            <!-- Title -->
+            <div class="title-container">
+                <h1 class="main-title">ELYUCANO CRAYFISH</h1>
+                <p class="subtitle">Revolutionary Smart Aquaculture Monitoring System for Modern Crayfish Farming</p>
+            </div>
+
+             <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">System Uptime %</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Hour Monitoring</div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="cta-container">
+                <form id="auto-login-form">
+                    <button type="submit" class="cta-button">
+                        <i class="fas fa-rocket"></i> Launch Dashboard
+                    </button>
+                </form>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3 class="feature-title">Real-Time Monitoring</h3>
+                    <p class="feature-desc">Advanced IoT sensors provide live data on water quality, temperature, pH levels, and dissolved oxygen for optimal crayfish health and growth.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3 class="feature-title">Smart Automation</h3>
+                    <p class="feature-desc">Intelligent systems automatically control feeding schedules, water circulation, and environmental conditions for maximum efficiency.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3 class="feature-title">Predictive Analytics</h3>
+                    <p class="feature-desc">Advanced algorithms analyze patterns to predict potential issues and optimize farming conditions for better yields.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-database feature-icon"></i>
+                    <h3 class="feature-title">Data Storage</h3>
+                    <p class="feature-desc">All collected data is securely stored and can be accessed from anywhere, anytime for detailed analysis.</p>
+                </div>
+            </div>
+
+           
+
+
+        </div>
+    </div>
+
     <script>
-        // If already logged in, redirect to dashboard
+        // Loading Animation
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Particle System
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Floating Icons
+        function createFloatingIcons() {
+            const container = document.getElementById('floatingElements');
+            const icons = ['🐟', '🌊', '🔬', '📊', '⚡', '🌱', '💧', '🔋'];
+            
+            icons.forEach((icon, index) => {
+                const element = document.createElement('div');
+                element.className = 'floating-icon';
+                element.textContent = icon;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 20 + 's';
+                element.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(element);
+            });
+        }
+
+        // Animated Counter
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 20);
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            createFloatingIcons();
+
+            // Animate counters when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        animateCounter(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                observer.observe(stat);
+            });
+
+            // Ensure button is visible and accessible
+            const ctaButton = document.querySelector('.cta-button');
+            if (ctaButton) {
+                ctaButton.style.display = 'inline-flex';
+                ctaButton.style.visibility = 'visible';
+                ctaButton.style.opacity = '1';
+            }
+        });
+
+        // Auto-login functionality
         if (sessionStorage.getItem('loggedIn') === 'true' || localStorage.getItem('loggedIn') === 'true') {
             window.location.href = 'dashboard.html';
         }
+
         document.getElementById('auto-login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simulate login (set sessionStorage)
-            sessionStorage.setItem('loggedIn', 'true');
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            
+            // Add button loading state
+            const button = this.querySelector('button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Launching...';
+            button.disabled = true;
+
+            // Simulate loading
+            setTimeout(() => {
+                sessionStorage.setItem('loggedIn', 'true');
+                window.location.href = 'dashboard.html';
+            }, 1000);
         });
+
+        // Parallax effect for background
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.animated-bg');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Add hover effects to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Ensure button is always visible on all screen sizes
+        function ensureButtonVisibility() {
+            const button = document.querySelector('.cta-button');
+            if (button) {
+                button.style.display = 'inline-flex';
+                button.style.visibility = 'visible';
+                button.style.opacity = '1';
+                button.style.position = 'relative';
+                button.style.zIndex = '100';
+            }
+        }
+
+        // Call on load and resize
+        window.addEventListener('load', ensureButtonVisibility);
+        window.addEventListener('resize', ensureButtonVisibility);
     </script>
 </body>
 </html>
