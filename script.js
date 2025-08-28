@@ -188,7 +188,7 @@ const translations = {
         "about_developers": "Maipapan Kadagiti Developer",
         "lead_developer": "Pangulo a Developer",
         "language": "Pagsasao",
-        "quick_links": "Napardas a Link",
+        "quick_links": "Dagiti Link",
         "sensors": "Dagiti Sensor",
         "about": "Maipapan",
         "contact": "Kontaken",
